@@ -1,0 +1,8 @@
+{
+  "name": "poc-twitch-hue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SantiMA10/twitch-hue.git",
+  "author": "Santi",
+  "license": "MIT"
+}
