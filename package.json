@@ -4,5 +4,19 @@
   "main": "index.js",
   "repository": "https://github.com/SantiMA10/twitch-hue.git",
   "author": "Santi",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev:twitch": "nodemon -r dotenv/config src/twitch.js",
+    "dev:hue": "nodemon -r dotenv/config src/hue.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "node-hue-api": "^4.0.6",
+    "socket.io": "^2.3.0",
+    "websocket": "^1.0.31",
+    "ws": "^7.3.0"
+  }
 }
