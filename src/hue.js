@@ -11,11 +11,11 @@ const updateLightStatus = async ({ on } = { on: false }) => {
     process.env.HUE_REFRESH_TOKEN
   );
 
-  await Promise.all([
-    api.lights.setLightState(5, { on }),
-    api.lights.setLightState(6, { on }),
-    api.lights.setLightState(9, { on }),
-  ]);
+  await Promise.all(
+    process.env.HUE_LIGHTS.split(",").map((id) =>
+      api.lights.setLightState(id, { on })
+    )
+  );
 };
 
 module.exports = updateLightStatus;
