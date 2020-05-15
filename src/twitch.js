@@ -35,7 +35,7 @@ ws.on("message", function incoming(data) {
 
   const reward = message.data.redemption.reward;
 
-  if (reward.id === "3cc420c0-2198-4cd8-9a07-c68f489c50be") {
+  if (reward.id === process.env.TWITCH_REWARD_ID) {
     hue({ on: false });
 
     setTimeout(() => {
