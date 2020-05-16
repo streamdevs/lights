@@ -1,6 +1,8 @@
 import { Server, Request, ResponseToolkit } from "@hapi/hapi";
 import { initTwitchPubSub } from "./twitch";
 import { setup } from "./setup";
+import { getPhilipsHueApi, refreshHueTokens } from "./hue";
+import { Firestore } from "@google-cloud/firestore";
 
 const init = async () => {
   const server = new Server({
@@ -13,7 +15,9 @@ const init = async () => {
     {
       path: "/",
       method: "GET",
-      handler: (_: Request, h: ResponseToolkit) => {
+      handler: async (_: Request, h: ResponseToolkit) => {
+        await refreshHueTokens();
+
         return h.response("").code(200);
       },
     },
