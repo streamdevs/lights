@@ -45,7 +45,7 @@ export const refreshHueTokens = async (): Promise<void> => {
   const document = await client.doc("integration/hue").get();
   const { access_token_expire_at } = document.data() || {};
 
-  if (!access_token_expire_at || Date.now() < access_token_expire_at) {
+  if (Date.now() < access_token_expire_at) {
     console.log("INFO: skip hue token refresh");
     return;
   }

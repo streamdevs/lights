@@ -1,6 +1,8 @@
 import WebSocket from "ws";
 import { updateLightStatus } from "./hue";
 import { Firestore } from "@google-cloud/firestore";
+import fetch from "node-fetch";
+import qs from "qs";
 
 function ping(ws: WebSocket) {
   console.log("INFO: ping...");
@@ -87,5 +89,44 @@ export function initTwitchPubSub() {
         updateLightStatus({ on: true });
       }, 10 * 1000);
     }
+  });
+}
+
+export async function refreshTwitchToken() {
+  const client = new Firestore();
+  const document = await client.doc("integration/twitch").get();
+  const { refresh_token: refreshToken, access_token_expire_at } =
+    document.data() || {};
+
+  if (Date.now() < access_token_expire_at) {
+    console.log("INFO: skip twitch token refresh");
+    return;
+  }
+
+  console.log("INFO: refreshing new twitch tokens");
+  const { access_token, refresh_token, expires_in } = await fetch(
+    `https://id.twitch.tv/oauth2/token`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: qs.stringify({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+        client_id: process.env.TWITCH_CLIENT_ID,
+        client_secret: process.env.TWITCH_CLIENT_SECRET,
+      }),
+    }
+  ).then((res) => res.json());
+
+  if (!access_token || !refresh_token) {
+    console.error("ERROR: Unable to refresh Twitch token");
+  }
+
+  await client.doc("integration/twitch").set({
+    access_token,
+    access_token_expire_at: Date.now() + expires_in * 1000,
+    refresh_token,
   });
 }
