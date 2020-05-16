@@ -7,17 +7,19 @@
   "license": "MIT",
   "scripts": {
     "dev:twitch": "nodemon -r dotenv/config src/twitch.js",
-    "dev:hue": "nodemon -r dotenv/config src/hue.js"
+    "dev:hue": "nodemon -r dotenv/config src/hue.js",
+    "start": "node -r dotenv/config src/index.js",
+    "deploy": "gcloud app deploy --quiet && gcloud app deploy cron.yaml --quiet"
   },
   "devDependencies": {
+    "@types/hapi__hapi": "^19.0.3",
     "jest": "^26.0.1",
     "nodemon": "^2.0.3"
   },
   "dependencies": {
+    "@hapi/hapi": "^19.1.1",
     "dotenv": "^8.2.0",
     "node-hue-api": "^4.0.6",
-    "socket.io": "^2.3.0",
-    "websocket": "^1.0.31",
     "ws": "^7.3.0"
   }
 }

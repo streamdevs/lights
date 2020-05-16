@@ -1,0 +1,5 @@
+cron:
+  - description: "keep App Engine running"
+    url: /
+    schedule: every 5 mins
+    target: light

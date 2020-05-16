@@ -39,12 +39,15 @@ function connect() {
   ws.on("close", function close() {
     console.log("INFO: Disconnected");
     clearInterval(pingHandle);
-    console.log("INFO: Reconnecting...");
-    setTimeout(connect, reconnectInterval);
   });
 
   ws.on("message", function message(data) {
     const json = JSON.parse(data);
+
+    if (json.type === "RESPONSE" && json.error === "ERR_BADAUTH") {
+      console.log("ERROR: Invalid Twitch Token");
+      process.exit(1);
+    }
 
     if (json.type === "PONG") {
       console.log("INFO: ...pong");
@@ -78,4 +81,4 @@ function connect() {
   });
 }
 
-connect();
+module.exports = connect;
