@@ -1,5 +1,6 @@
 import WebSocket from "ws";
 import { updateLightStatus } from "./hue";
+import { Firestore } from "@google-cloud/firestore";
 
 function ping(ws: WebSocket) {
   console.log("INFO: ping...");
@@ -20,6 +21,13 @@ export function initTwitchPubSub() {
   ws.on("open", async function open() {
     console.log("INFO: Connected");
 
+    const client = new Firestore();
+    const document = await client.doc("integration/twitch").get();
+
+    if (!document.data()) {
+      throw new Error("Unable to load Twitch configuration from Firestore");
+    }
+
     ws.send(
       JSON.stringify({
         type: "LISTEN",
@@ -28,7 +36,7 @@ export function initTwitchPubSub() {
           topics: [
             `channel-points-channel-v1.${process.env.TWITCH_CHANNEL_ID}`,
           ],
-          auth_token: process.env.TWITCH_TOKEN,
+          auth_token: document.data()?.access_token,
         },
       })
     );

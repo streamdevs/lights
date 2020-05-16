@@ -1,10 +1,13 @@
 import { Server, Request, ResponseToolkit } from "@hapi/hapi";
 import { initTwitchPubSub } from "./twitch";
+import { setup } from "./setup";
 
 const init = async () => {
   const server = new Server({
     port: process.env.PORT || 3000,
   });
+
+  await setup();
 
   server.route([
     {
