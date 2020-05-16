@@ -1,7 +1,7 @@
-const WebSocket = require("ws");
-const hue = require("./hue");
+import WebSocket from "ws";
+import { updateLightStatus } from "./hue";
 
-function ping(ws) {
+function ping(ws: WebSocket) {
   console.log("INFO: ping...");
   ws.send(
     JSON.stringify({
@@ -10,15 +10,16 @@ function ping(ws) {
   );
 }
 
-function connect() {
+export function initTwitchPubSub() {
   const pingInterval = 1000 * 60; //ms between PING's
   const reconnectInterval = 1000 * 3; //ms to wait before reconnect
-  let pingHandle;
+  let pingHandle: NodeJS.Timeout;
 
   const ws = new WebSocket("wss://pubsub-edge.twitch.tv");
 
-  ws.on("open", function open() {
+  ws.on("open", async function open() {
     console.log("INFO: Connected");
+
     ws.send(
       JSON.stringify({
         type: "LISTEN",
@@ -41,7 +42,7 @@ function connect() {
     clearInterval(pingHandle);
   });
 
-  ws.on("message", function message(data) {
+  ws.on("message", function message(data: string) {
     const json = JSON.parse(data);
 
     if (json.type === "RESPONSE" && json.error === "ERR_BADAUTH") {
@@ -55,7 +56,7 @@ function connect() {
 
     if (json.type == "RECONNECT") {
       console.log("INFO: Reconnecting...");
-      setTimeout(connect, reconnectInterval);
+      setTimeout(initTwitchPubSub, reconnectInterval);
     }
 
     if (!json.data) {
@@ -72,13 +73,11 @@ function connect() {
 
     if (reward.id === process.env.TWITCH_REWARD_ID) {
       console.log("INFO: Reward redeem");
-      hue({ on: false });
+      updateLightStatus({ on: false });
 
       setTimeout(() => {
-        hue({ on: true });
+        updateLightStatus({ on: true });
       }, 10 * 1000);
     }
   });
 }
-
-module.exports = connect;

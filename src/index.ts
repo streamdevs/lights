@@ -1,8 +1,8 @@
-const Hapi = require("@hapi/hapi");
-const initTwitch = require("./twitch");
+import { Server, Request, ResponseToolkit } from "@hapi/hapi";
+import { initTwitchPubSub } from "./twitch";
 
 const init = async () => {
-  const server = Hapi.server({
+  const server = new Server({
     port: process.env.PORT || 3000,
   });
 
@@ -10,14 +10,14 @@ const init = async () => {
     {
       path: "/",
       method: "GET",
-      handler: (_, h) => {
+      handler: (_: Request, h: ResponseToolkit) => {
         return h.response("").code(200);
       },
     },
   ]);
 
   await server.start();
-  initTwitch();
+  initTwitchPubSub();
   console.log("Server running on %s", server.info.uri);
 };
 
