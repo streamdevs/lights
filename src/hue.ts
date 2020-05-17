@@ -1,10 +1,21 @@
 import { v3 } from "node-hue-api";
 import { Firestore } from "@google-cloud/firestore";
 import Api from "node-hue-api/lib/api/Api";
+import { FirestoreStorageService } from "./services/storage/FirestoreStorageService";
 
 let api: Api;
 
-export const getPhilipsHueApi = async (): Promise<Api> => {
+interface GetPhilipsHueApiConf {
+  storageClient: FirestoreStorageService;
+  hueClient: typeof v3.api;
+}
+
+export const getPhilipsHueApi = async (
+  { storageClient, hueClient }: GetPhilipsHueApiConf = {
+    storageClient: new FirestoreStorageService(new Firestore()),
+    hueClient: v3.api,
+  }
+): Promise<Api> => {
   if (api) {
     return api;
   }
@@ -14,11 +25,9 @@ export const getPhilipsHueApi = async (): Promise<Api> => {
   if (!HUE_CLIENT_ID || !HUE_CLIENT_SECRET) {
     throw new Error("Missing Philips Hue env configuration");
   }
-  const remote = v3.api.createRemote(HUE_CLIENT_ID, HUE_CLIENT_SECRET);
+  const remote = hueClient.createRemote(HUE_CLIENT_ID, HUE_CLIENT_SECRET);
 
-  const client = new Firestore();
-  const document = await client.doc("integration/hue").get();
-  const data = document.data();
+  const data = await storageClient.getDocument("integration/hue");
 
   if (!data) {
     throw new Error("Unable to load Twitch configuration from Firestore");
