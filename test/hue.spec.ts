@@ -1,4 +1,4 @@
-import { getPhilipsHueApi } from "../src/hue";
+import * as hue from "../src/hue";
 import { v3 } from "node-hue-api";
 import RemoteBootstrap from "node-hue-api/lib/api/http/RemoteBootstrap";
 import { Firestore } from "@google-cloud/firestore";
@@ -8,13 +8,13 @@ describe("hue", () => {
   describe("#getPhilipsHueApi", () => {
     it("throws an error if there not 'HUE_CLIENT_ID' env var configured", () => {
       expect(async () => {
-        await getPhilipsHueApi();
+        await hue.getPhilipsHueApi();
       }).rejects.toThrowError("Missing Philips Hue env configuration");
     });
 
     it("throws an error if there not 'HUE_CLIENT_SECRET' env var configured", () => {
       expect(async () => {
-        await getPhilipsHueApi();
+        await hue.getPhilipsHueApi();
       }).rejects.toThrowError("Missing Philips Hue env configuration");
     });
 
@@ -58,7 +58,7 @@ describe("hue", () => {
       });
 
       it("calls createRemote with the 'HUE_CLIENT_ID' and 'HUE_CLIENT_SECRET' env var values", async () => {
-        await getPhilipsHueApi({ storageClient, hueClient });
+        await hue.getPhilipsHueApi({ storageClient, hueClient });
 
         expect(hueClient.createRemote).toHaveBeenCalledWith(
           "HUE_CLIENT_ID",
@@ -70,7 +70,7 @@ describe("hue", () => {
         data.mockImplementationOnce(() => null as any);
 
         expect(async () => {
-          await getPhilipsHueApi({ storageClient, hueClient });
+          await hue.getPhilipsHueApi({ storageClient, hueClient });
         }).rejects.toThrowError(
           "Unable to load Twitch configuration from Firestore"
         );
@@ -82,10 +82,40 @@ describe("hue", () => {
           refresh_token: "refresh",
         }));
 
-        await getPhilipsHueApi({ storageClient, hueClient });
+        await hue.getPhilipsHueApi({ storageClient, hueClient });
 
         expect(connectWithTokens).toHaveBeenCalledWith("access", "refresh");
       });
+    });
+  });
+
+  describe("#updateLightStatus", () => {
+    it("calls the Philips Hue api with the default status and light id", async () => {
+      const setLightState = jest.fn();
+      jest
+        .spyOn(hue, "getPhilipsHueApi")
+        .mockImplementationOnce(
+          async () => ({ lights: { setLightState } } as any)
+        );
+      process.env.HUE_LIGHTS = "9";
+
+      await hue.updateLightStatus();
+
+      expect(setLightState).toHaveBeenCalledWith("9", { on: false });
+    });
+
+    it("calls the Philips Hue api with the given status and light id", async () => {
+      const setLightState = jest.fn();
+      jest
+        .spyOn(hue, "getPhilipsHueApi")
+        .mockImplementationOnce(
+          async () => ({ lights: { setLightState } } as any)
+        );
+      process.env.HUE_LIGHTS = "9";
+
+      await hue.updateLightStatus({ on: true });
+
+      expect(setLightState).toHaveBeenCalledWith("9", { on: true });
     });
   });
 });
