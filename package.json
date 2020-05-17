@@ -6,7 +6,8 @@
   "author": "Santi",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project ./src",
+    "build:check": "yarn build --noEmit",
     "start": "node -r dotenv/config dist/index.js",
     "predeploy": "yarn build",
     "deploy": "gcloud app deploy --quiet && gcloud app deploy cron.yaml --quiet",
