@@ -1,10 +1,21 @@
 import { v3 } from "node-hue-api";
 import { Firestore } from "@google-cloud/firestore";
 import Api from "node-hue-api/lib/api/Api";
+import { FirestoreStorageService } from "./services/storage/FirestoreStorageService";
 
 let api: Api;
 
-export const getPhilipsHueApi = async (): Promise<Api> => {
+interface GetPhilipsHueApiConf {
+  storageClient: FirestoreStorageService;
+  hueClient: typeof v3.api;
+}
+
+export const getPhilipsHueApi = async (
+  { storageClient, hueClient }: GetPhilipsHueApiConf = {
+    storageClient: new FirestoreStorageService(new Firestore()),
+    hueClient: v3.api,
+  }
+): Promise<Api> => {
   if (api) {
     return api;
   }
@@ -14,11 +25,9 @@ export const getPhilipsHueApi = async (): Promise<Api> => {
   if (!HUE_CLIENT_ID || !HUE_CLIENT_SECRET) {
     throw new Error("Missing Philips Hue env configuration");
   }
-  const remote = v3.api.createRemote(HUE_CLIENT_ID, HUE_CLIENT_SECRET);
+  const remote = hueClient.createRemote(HUE_CLIENT_ID, HUE_CLIENT_SECRET);
 
-  const client = new Firestore();
-  const document = await client.doc("integration/hue").get();
-  const data = document.data();
+  const data = await storageClient.get("integration/hue");
 
   if (!data) {
     throw new Error("Unable to load Twitch configuration from Firestore");
@@ -40,10 +49,11 @@ export const updateLightStatus = async ({ on } = { on: false }) => {
   );
 };
 
-export const refreshHueTokens = async (): Promise<void> => {
-  const client = new Firestore();
-  const document = await client.doc("integration/hue").get();
-  const { access_token_expire_at } = document.data() || {};
+export const refreshHueTokens = async (
+  { client } = { client: new FirestoreStorageService(new Firestore()) }
+): Promise<void> => {
+  const { access_token_expire_at } =
+    (await client.get("integration/hue")) || {};
 
   if (Date.now() < access_token_expire_at) {
     console.log("INFO: skip hue token refresh");
@@ -59,7 +69,7 @@ export const refreshHueTokens = async (): Promise<void> => {
     accessTokenExpiresAt,
   } = await api.remote.refreshTokens();
 
-  await client.doc("integration/hue").set({
+  await client.set("integration/hue", {
     access_token: accessToken,
     access_token_expire_at: accessTokenExpiresAt,
     refresh_token: refreshToken,
