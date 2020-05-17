@@ -27,7 +27,7 @@ export const getPhilipsHueApi = async (
   }
   const remote = hueClient.createRemote(HUE_CLIENT_ID, HUE_CLIENT_SECRET);
 
-  const data = await storageClient.getDocument("integration/hue");
+  const data = await storageClient.get("integration/hue");
 
   if (!data) {
     throw new Error("Unable to load Twitch configuration from Firestore");
@@ -49,10 +49,11 @@ export const updateLightStatus = async ({ on } = { on: false }) => {
   );
 };
 
-export const refreshHueTokens = async (): Promise<void> => {
-  const client = new Firestore();
-  const document = await client.doc("integration/hue").get();
-  const { access_token_expire_at } = document.data() || {};
+export const refreshHueTokens = async (
+  { client } = { client: new FirestoreStorageService(new Firestore()) }
+): Promise<void> => {
+  const { access_token_expire_at } =
+    (await client.get("integration/hue")) || {};
 
   if (Date.now() < access_token_expire_at) {
     console.log("INFO: skip hue token refresh");
@@ -68,7 +69,7 @@ export const refreshHueTokens = async (): Promise<void> => {
     accessTokenExpiresAt,
   } = await api.remote.refreshTokens();
 
-  await client.doc("integration/hue").set({
+  await client.set("integration/hue", {
     access_token: accessToken,
     access_token_expire_at: accessTokenExpiresAt,
     refresh_token: refreshToken,

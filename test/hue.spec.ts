@@ -118,4 +118,73 @@ describe("hue", () => {
       expect(setLightState).toHaveBeenCalledWith("9", { on: true });
     });
   });
+
+  describe("#refreshHueTokens", () => {
+    const client = ({
+      get: jest.fn(),
+      set: jest.fn(),
+    } as unknown) as FirestoreStorageService;
+    let tokens: any;
+
+    beforeEach(() => {
+      tokens = {
+        accessToken: "accessToken",
+        refreshToken: "refreshToken",
+        refreshTokenExpiresAt: "refreshTokenExpiresAt",
+        accessTokenExpiresAt: "accessTokenExpiresAt",
+      };
+      jest
+        .spyOn(hue, "getPhilipsHueApi")
+        .mockImplementationOnce(
+          async () =>
+            ({ remote: { refreshTokens: jest.fn(async () => tokens) } } as any)
+        );
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("logs that we don't need to refresh the hue token", async () => {
+      jest.spyOn(Date, "now").mockReturnValueOnce(-1);
+      jest
+        .spyOn(client, "get")
+        .mockReturnValueOnce(Promise.resolve({ access_token_expire_at: 0 }));
+      const spyConsole = jest.spyOn(console, "log");
+
+      await hue.refreshHueTokens({ client });
+
+      expect(spyConsole).toHaveBeenCalledWith("INFO: skip hue token refresh");
+    });
+
+    it("logs that we try to refresh the hue token", async () => {
+      jest.spyOn(Date, "now").mockReturnValueOnce(1);
+      jest
+        .spyOn(client, "get")
+        .mockReturnValueOnce(Promise.resolve({ access_token_expire_at: 0 }));
+      const spyConsole = jest.spyOn(console, "log");
+
+      await hue.refreshHueTokens({ client });
+
+      expect(spyConsole).toHaveBeenCalledWith(
+        "INFO: refreshing new hue tokens"
+      );
+    });
+
+    it("calls the 'FirestoreStorage' with the new tokens", async () => {
+      jest.spyOn(Date, "now").mockReturnValueOnce(1);
+      jest
+        .spyOn(client, "get")
+        .mockReturnValueOnce(Promise.resolve({ access_token_expire_at: 0 }));
+
+      await hue.refreshHueTokens({ client });
+
+      expect(client.set).toHaveBeenCalledWith("integration/hue", {
+        access_token: tokens.accessToken,
+        access_token_expire_at: tokens.accessTokenExpiresAt,
+        refresh_token: tokens.refreshToken,
+        refresh_token_expires_at: tokens.refreshTokenExpiresAt,
+      });
+    });
+  });
 });
