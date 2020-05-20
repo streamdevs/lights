@@ -50,6 +50,7 @@ export function initTwitchPubSub() {
   ws.on("close", function close() {
     console.log("INFO: Disconnected");
     clearInterval(pingHandle);
+    process.exit(1);
   });
 
   ws.on("message", function message(data: string) {
