@@ -20,3 +20,7 @@ cp .env.example .env
 | HUE_TOKEN         | The [hue access token](https://developers.meethue.com/develop/hue-api/remote-authentication/) generated with the same Philips Hue Remote  | **true** |
 | HUE_REFRESH_TOKEN | The [hue refresh token](https://developers.meethue.com/develop/hue-api/remote-authentication/) generated with the same Philips Hue Remote | **true** |
 | HUE_LIGHTS        | A comma separated string with the ids of the lights you want to let your streaming to turn off/on                                         | **true** |
+
+## License
+
+This project is under the [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license
