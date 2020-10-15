@@ -1,24 +1,27 @@
-import { Server, Request, ResponseToolkit } from "@hapi/hapi";
-import { initTwitchPubSub, refreshTwitchToken } from "./twitch";
-import { setup } from "./setup";
-import { refreshHueTokens } from "./hue";
+import { Request, ResponseToolkit, Server } from "@hapi/hapi";
+import { initTwitchPubSub } from "./twitch";
 
 const init = async () => {
   const server = new Server({
     port: process.env.PORT || 3000,
   });
 
-  await setup();
-
   server.route([
     {
       path: "/",
       method: "GET",
       handler: async (_: Request, h: ResponseToolkit) => {
-        await refreshHueTokens();
-        await refreshTwitchToken();
-
         return h.response("").code(200);
+      },
+    },
+    {
+      path: "/twitch/rewards",
+      method: "POST",
+      handler: async (request: Request, h: ResponseToolkit) => {
+        const payload = request.payload;
+        console.log(payload);
+
+        return h.response().code(204);
       },
     },
   ]);

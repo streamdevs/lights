@@ -10,16 +10,14 @@ Copy the .env.example file and complete the required values.
 cp .env.example .env
 ```
 
-| Env var           | Description                                                                                                                               | Required |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| TWITCH_CHANNEL_ID | Your [Twitch Channel Id](https://dev.twitch.tv/docs/v5/reference/channels/#get-channel)                                                   | **true** |
-| TWITCH_TOKEN      | Your [Twitch Access Token](https://dev.twitch.tv/docs/authentication#getting-tokens) with **channel:read:redemptions** scope              | **true** |
-| TWITCH_REWARD_ID  | The id of the reward you want to use as a trigger                                                                                         | **true** |
-| HUE_CLIENT_ID     | The client id from a [Philips Hue Remote](https://developers.meethue.com/develop/hue-api/remote-api-quick-start-guide/)                   | **true** |
-| HUE_CLIENT_SECRET | The client secret from a [Philips Hue Remote](https://developers.meethue.com/develop/hue-api/remote-api-quick-start-guide/)               | **true** |
-| HUE_TOKEN         | The [hue access token](https://developers.meethue.com/develop/hue-api/remote-authentication/) generated with the same Philips Hue Remote  | **true** |
-| HUE_REFRESH_TOKEN | The [hue refresh token](https://developers.meethue.com/develop/hue-api/remote-authentication/) generated with the same Philips Hue Remote | **true** |
-| HUE_LIGHTS        | A comma separated string with the ids of the lights you want to let your streaming to turn off/on                                         | **true** |
+| Env var                         | Description                                                                             | Required |
+| ------------------------------- | --------------------------------------------------------------------------------------- | -------- |
+| TWITCH_CHANNEL_ID               | Your [Twitch Channel Id](https://dev.twitch.tv/docs/v5/reference/channels/#get-channel) | **true** |
+| TWITCH_CLIENT_ID                | Your Twitch Client ID                                                                   | **true** |
+| TWITCH_CLIENT_SECRET            | Your Twitch Client Secret                                                               | **true** |
+| APP_GOOGLE_CLOUD_SERVICE        | The name of the AppEngine Service that is running the app                               | **true** |
+| APP_GOOGLE_CLOUD_QUEUE          | The name of the Google Cloud Task queue which will handle the requests                  | **true** |
+| APP_GOOGLE_CLOUD_QUEUE_LOCATION | The location of the Google Cloud Task queue which will handle the requests              | **true** |
 
 ## License
 
