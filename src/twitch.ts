@@ -1,6 +1,4 @@
 import { Firestore } from "@google-cloud/firestore";
-import { CloudTasksClient } from "@google-cloud/tasks";
-import { google } from "@google-cloud/tasks/build/protos/protos";
 import { ApiClient } from "twitch";
 import {
   AccessToken,
@@ -14,8 +12,6 @@ import { GoogleCloudTaskService } from "./services/task/GoogleCloudTaskService";
 
 const {
   twitch: { clientId, clientSecret, channelId },
-  project: { id: projectId, service },
-  tasks: { queue, location },
 } = getConfiguration();
 
 export const initTwitchPubSub = async () => {
