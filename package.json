@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc --project ./src",
     "build:check": "yarn build --noEmit",
+    "start:watch": "nodemon --watch 'src' -e ts --exec 'ts-node -r dotenv/config' --files ./src/index.ts",
     "start": "node -r dotenv/config dist/index.js",
     "predeploy": "yarn build",
     "deploy": "gcloud app deploy app.yaml --quiet && gcloud app deploy cron.yaml --quiet",
@@ -26,6 +27,7 @@
     "nock": "^13.0.4",
     "nodemon": "^2.0.3",
     "ts-jest": "^26.0.0",
+    "ts-node": "^9.0.0",
     "typescript": "^3.9.2"
   },
   "dependencies": {

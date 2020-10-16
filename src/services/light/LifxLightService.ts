@@ -1,9 +1,10 @@
 import { getConfiguration } from "../../config";
 import { HttpDriver } from "../../drivers/HttpDriver";
+import { NodeFetchHttpDriver } from "../../drivers/NodeFetchHttpDriver";
 import { LightService } from "./LightService";
 
 export class LifxLightService implements LightService {
-  public constructor(private driver: HttpDriver) {}
+  public constructor(private driver: HttpDriver = new NodeFetchHttpDriver()) {}
 
   public async turnOn(light: any): Promise<void> {
     await this.driver.put(`https://api.lifx.com/v1/lights/${light.id}/state`, {

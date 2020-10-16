@@ -1,5 +1,5 @@
 import { Light } from "../../src/entities/Light";
-import { TurnOffAndOnLights } from "../../src/useCasers/TurnOffAndOnLights";
+import { TurnOffAndOnLights } from "../../src/useCases/TurnOffAndOnLights";
 import { wait } from "../../src/utils/wait";
 
 jest.mock("../../src/utils/wait", () => ({
