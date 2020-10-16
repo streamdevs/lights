@@ -1,10 +1,6 @@
 import { Light } from "../entities/Light";
+import { LightService } from "../services/light/LightService";
 import { wait } from "../utils/wait";
-
-interface LightService {
-  turnOn: (light: Light) => Promise<void>;
-  turnOff: (light: Light) => Promise<void>;
-}
 
 interface PerformOptions {
   lights: Light[];

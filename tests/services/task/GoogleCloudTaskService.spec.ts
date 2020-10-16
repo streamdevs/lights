@@ -1,6 +1,6 @@
 import { v2 } from "@google-cloud/tasks";
-import { GoogleCloudTaskService } from "../../src/services/task/GoogleCloudTaskService";
-import { RewardBuilder } from "../builders/RewardBuilder";
+import { GoogleCloudTaskService } from "../../../src/services/task/GoogleCloudTaskService";
+import { RewardBuilder } from "../../builders/RewardBuilder";
 
 const testBuilder = () => {
   const client = ({
