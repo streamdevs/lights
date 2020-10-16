@@ -1,6 +1,6 @@
 # 💡💡 lights
 
-> Let your streaming control your Philips Hue lights 🙈
+> Let your streaming control your Lifx and Philips Hue lights 🙈
 
 ## How to setup
 
