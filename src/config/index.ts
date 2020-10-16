@@ -14,5 +14,8 @@ export const getConfiguration = () => {
         process.env.TWITCH_CLIENT_SECRET || "fake-twitch-client-secret",
       channelId: process.env.TWITCH_CHANNEL_ID || "fake-twitch-channel-id",
     },
+    lifx: {
+      accessToken: process.env.LIFX_ACCESS_TOKEN || "fake-lifx-token",
+    },
   };
 };
