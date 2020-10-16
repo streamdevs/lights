@@ -1,31 +1,38 @@
 {
-  "name": "poc-twitch-hue",
-  "version": "1.0.0",
+  "name": "streamdevs-lights",
+  "version": "2.0.0",
   "main": "index.js",
-  "repository": "https://github.com/SantiMA10/twitch-hue.git",
+  "repository": "https://github.com/streamdevs/lights.git",
   "author": "Santi",
   "license": "MIT",
   "scripts": {
     "build": "tsc --project ./src",
     "build:check": "yarn build --noEmit",
+    "start:watch": "nodemon --watch 'src' -e ts --exec 'ts-node -r dotenv/config' --files ./src/index.ts",
     "start": "node -r dotenv/config dist/index.js",
     "predeploy": "yarn build",
-    "deploy": "gcloud app deploy --quiet && gcloud app deploy cron.yaml --quiet",
+    "deploy": "gcloud app deploy app.yaml --quiet && gcloud app deploy cron.yaml --quiet",
     "test": "jest",
     "test:watch": "yarn test --watch"
   },
   "devDependencies": {
+    "@types/faker": "^5.1.2",
     "@types/hapi__hapi": "^19.0.3",
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
     "@types/ws": "^7.2.4",
+    "factory.ts": "^0.5.1",
+    "faker": "^5.1.0",
     "jest": "^26.0.1",
+    "nock": "^13.0.4",
     "nodemon": "^2.0.3",
     "ts-jest": "^26.0.0",
+    "ts-node": "^9.0.0",
     "typescript": "^3.9.2"
   },
   "dependencies": {
     "@google-cloud/firestore": "^3.8.0",
+    "@google-cloud/tasks": "^2.1.1",
     "@hapi/hapi": "^19.1.1",
     "@types/node-fetch": "^2.5.7",
     "@types/qs": "^6.9.2",
@@ -33,6 +40,8 @@
     "node-fetch": "^2.6.1",
     "node-hue-api": "^4.0.6",
     "qs": "^6.9.4",
+    "twitch": "^4.2.6",
+    "twitch-pubsub-client": "^4.2.6",
     "ws": "^7.3.0"
   }
 }
