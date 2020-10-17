@@ -13,6 +13,9 @@ export const getConfiguration = () => {
       clientSecret:
         process.env.TWITCH_CLIENT_SECRET || "fake-twitch-client-secret",
       channelId: process.env.TWITCH_CHANNEL_ID || "fake-twitch-channel-id",
+      redirectUri:
+        process.env.TWITCH_REDIRECT_URI || "fake-twitch-redirect-uri",
+      scopes: process.env.TWITCH_SCOPES || "fake-twitch-scopes",
     },
     lifx: {
       accessToken: process.env.LIFX_ACCESS_TOKEN || "fake-lifx-token",
