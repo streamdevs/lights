@@ -1,4 +1,5 @@
 import { Server } from "@hapi/hapi";
+import Joi from "@hapi/joi";
 import { routes } from "./routes";
 
 export const initServer = () => {
@@ -6,6 +7,7 @@ export const initServer = () => {
     port: process.env.PORT || 3000,
   });
 
+  server.validator(Joi);
   server.route(routes());
 
   return server;

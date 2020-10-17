@@ -33,7 +33,8 @@
   "dependencies": {
     "@google-cloud/firestore": "^4.4.0",
     "@google-cloud/tasks": "^2.1.1",
-    "@hapi/hapi": "^19.1.1",
+    "@hapi/hapi": "^20.0.1",
+    "@hapi/joi": "^17.1.1",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
     "twitch": "^4.2.6",
