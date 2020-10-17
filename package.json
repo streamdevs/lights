@@ -20,7 +20,7 @@
     "@types/hapi__hapi": "^19.0.3",
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
-    "@types/ws": "^7.2.4",
+    "@types/node-fetch": "^2.5.7",
     "factory.ts": "^0.5.1",
     "faker": "^5.1.0",
     "jest": "^26.0.1",
@@ -34,14 +34,9 @@
     "@google-cloud/firestore": "^3.8.0",
     "@google-cloud/tasks": "^2.1.1",
     "@hapi/hapi": "^19.1.1",
-    "@types/node-fetch": "^2.5.7",
-    "@types/qs": "^6.9.2",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
-    "node-hue-api": "^4.0.6",
-    "qs": "^6.9.4",
     "twitch": "^4.2.6",
-    "twitch-pubsub-client": "^4.2.6",
-    "ws": "^7.3.0"
+    "twitch-pubsub-client": "^4.2.6"
   }
 }
