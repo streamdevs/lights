@@ -20,17 +20,9 @@ describe("TurnOffAndOnLights", () => {
 
       await subject.perform({ lights: [light] });
 
-      expect(lightService.turnOn).toHaveBeenCalledWith(
-        light,
-        expect.anything(),
-        expect.anything()
-      );
+      expect(lightService.turnOn).toHaveBeenCalledWith(light);
       expect(wait).toHaveBeenCalledWith(10);
-      expect(lightService.turnOff).toHaveBeenCalledWith(
-        light,
-        expect.anything(),
-        expect.anything()
-      );
+      expect(lightService.turnOff).toHaveBeenCalledWith(light);
     });
   });
 });
