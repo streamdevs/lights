@@ -31,7 +31,7 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^3.8.0",
+    "@google-cloud/firestore": "^4.4.0",
     "@google-cloud/tasks": "^2.1.1",
     "@hapi/hapi": "^19.1.1",
     "dotenv": "^8.2.0",
