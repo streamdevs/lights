@@ -6,4 +6,5 @@ export const RewardBuilder = Factory.Sync.makeFactory<Reward>({
   id: random.uuid(),
   date: date.past(),
   name: random.word(),
+  message: random.words(),
 });

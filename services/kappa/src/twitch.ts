@@ -51,6 +51,7 @@ export const initTwitchPubSub = async () => {
         id: event.rewardId,
         name: event.rewardName,
         date: event.redemptionDate,
+        message: event.message,
       },
     };
 
