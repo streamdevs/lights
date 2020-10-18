@@ -115,8 +115,10 @@ jobs:
           path: services/light/dist
 
       # Get .env file
-      - name: deploy
-        run: "echo ${{secrets.ENV}} > .env"
+      - name: secrets
+        run: 'echo "$SECRETS_ENV" > .env'
+        env:
+          SECRETS_ENV: ${{ secrets.ENV }}
 
       # Deploy to Google App Engine
       - name: deploy
