@@ -1,13 +1,8 @@
-import { Server } from "@hapi/hapi";
-import { routes } from "./routes";
+import { initServer } from "./server";
 import { initTwitchPubSub } from "./twitch";
 
 const init = async () => {
-  const server = new Server({
-    port: process.env.PORT || 3000,
-  });
-
-  server.route(routes());
+  const server = initServer();
 
   await server.start();
   initTwitchPubSub();
