@@ -12,13 +12,14 @@
     "start": "node -r dotenv/config dist/index.js",
     "predeploy": "yarn build",
     "deploy": "gcloud app deploy app.yaml --quiet && gcloud app deploy cron.yaml --quiet",
-    "test": "jest",
+    "test": "APP_ENV='test' jest",
     "test:watch": "yarn test --watch"
   },
   "devDependencies": {
     "@types/faker": "^5.1.2",
     "@types/hapi__hapi": "^19.0.3",
     "@types/jest": "^25.2.2",
+    "@types/luxon": "^1.25.0",
     "@types/node": "^14.0.1",
     "@types/node-fetch": "^2.5.7",
     "factory.ts": "^0.5.1",
@@ -36,6 +37,7 @@
     "@hapi/hapi": "^20.0.1",
     "@hapi/joi": "^17.1.1",
     "dotenv": "^8.2.0",
+    "luxon": "^1.25.0",
     "node-fetch": "^2.6.1",
     "twitch": "^4.2.6",
     "twitch-pubsub-client": "^4.2.6"

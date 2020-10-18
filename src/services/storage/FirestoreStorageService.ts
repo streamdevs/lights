@@ -1,6 +1,7 @@
 import { Firestore } from "@google-cloud/firestore";
+import { StorageService } from "./StorageService";
 
-export class FirestoreStorageService {
+export class FirestoreStorageService implements StorageService {
   public constructor(private client: Firestore) {}
 
   public async get(path: string): Promise<any | undefined> {

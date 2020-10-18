@@ -22,3 +22,7 @@ export const getConfiguration = () => {
     },
   };
 };
+
+export const isTestEnv = () => {
+  return process.env.APP_ENV === "test";
+};

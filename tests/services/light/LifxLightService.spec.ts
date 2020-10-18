@@ -1,11 +1,12 @@
 import { getConfiguration } from "../../../src/config";
+import { FakeHttpDriver } from "../../../src/drivers/FakeHttpDriver";
 import { LifxLightService } from "../../../src/services/light/LifxLightService";
 import { LightBuilder } from "../../builders/LightBuilder";
 
 describe("LifxLightService", () => {
   describe("#turnOff", () => {
     it("calls the LIFX api route with to set the 'power' to 'off'", async () => {
-      const driver = { put: jest.fn() };
+      const driver = new FakeHttpDriver();
       const light = LightBuilder.build({ service: "LIFX" });
       const subject = new LifxLightService(driver);
 
@@ -23,11 +24,10 @@ describe("LifxLightService", () => {
     });
 
     it("throws the error if the driver fails", async () => {
-      const driver = {
-        put: () => {
-          throw new Error("Boom!");
-        },
-      };
+      const driver = new FakeHttpDriver();
+      driver.put.mockImplementation(() => {
+        throw new Error("Boom!");
+      });
       const light = LightBuilder.build({ service: "LIFX" });
       const subject = new LifxLightService(driver);
 
@@ -37,7 +37,7 @@ describe("LifxLightService", () => {
 
   describe("#turnOn", () => {
     it("calls the LIFX api route with to set the 'power' to 'on'", async () => {
-      const driver = { put: jest.fn() };
+      const driver = new FakeHttpDriver();
       const light = LightBuilder.build({ service: "LIFX" });
       const subject = new LifxLightService(driver);
 
@@ -55,11 +55,10 @@ describe("LifxLightService", () => {
     });
 
     it("throws the error if the driver fails", async () => {
-      const driver = {
-        put: () => {
-          throw new Error("Boom!");
-        },
-      };
+      const driver = new FakeHttpDriver();
+      driver.put.mockImplementation(() => {
+        throw new Error("Boom!");
+      });
       const light = LightBuilder.build({ service: "LIFX" });
       const subject = new LifxLightService(driver);
 

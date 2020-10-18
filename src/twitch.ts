@@ -17,25 +17,23 @@ const {
 export const initTwitchPubSub = async () => {
   const storageService = new FirestoreStorageService(new Firestore());
 
-  const { accessToken, refreshToken, isExpired } = await storageService.get(
+  const { accessToken, refreshToken, expiryDate } = await storageService.get(
     "services/twitch"
   );
-
-  if (isExpired) {
-    throw new Error("[Twitch] Token expired");
-  }
 
   const authProvider = new RefreshableAuthProvider(
     new StaticAuthProvider(clientId, accessToken),
     {
       clientSecret,
       refreshToken,
+      expiry: expiryDate.toDate(),
       onRefresh: async (token: AccessToken) => {
+        console.log("[Twitch] Token refreshed");
+
         await storageService.set("services/twitch", {
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
           expiryDate: token.expiryDate,
-          isExpired: token.isExpired,
         });
       },
     }
