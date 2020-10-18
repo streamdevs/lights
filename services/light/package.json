@@ -37,6 +37,7 @@
     "@hapi/joi": "^17.1.1",
     "dotenv": "^8.2.0",
     "luxon": "^1.25.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "string-to-color": "^2.2.2"
   }
 }

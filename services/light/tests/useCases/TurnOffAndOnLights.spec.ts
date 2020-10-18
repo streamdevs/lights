@@ -1,4 +1,5 @@
 import { Light } from "../../src/entities/Light";
+import { FakeLightService } from "../../src/services/light/FakeLightService";
 import { TurnOffAndOnLights } from "../../src/useCases/TurnOffAndOnLights";
 import { wait } from "../../src/utils/wait";
 
@@ -7,14 +8,10 @@ jest.mock("../../src/utils/wait", () => ({
 }));
 
 describe("TurnOffAndOnLights", () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
   describe("#perform", () => {
     it("turn off the lights, waits 10 seconds and turns all the lights on again", async () => {
       const light: Light = { service: "LIFX", id: "blablabla" };
-      const lightService = { turnOn: jest.fn(), turnOff: jest.fn() };
+      const lightService = new FakeLightService();
 
       const subject = new TurnOffAndOnLights(lightService);
 
