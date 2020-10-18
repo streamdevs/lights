@@ -10,7 +10,7 @@ export const routes = (): ServerRoute[] => {
       method: "POST",
       handler: async (request: Request, h: ResponseToolkit) => {
         const { reward } = request.payload as { reward: Reward };
-        console.log(reward);
+        console.log(JSON.stringify(reward));
 
         switch (reward.id) {
           case "3cc420c0-2198-4cd8-9a07-c68f489c50be":

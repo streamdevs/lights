@@ -44,6 +44,8 @@ export const initTwitchPubSub = async () => {
   await pubSubClient.registerUserListener(apiClient);
 
   const listener = await pubSubClient.onRedemption(channelId, async (event) => {
+    console.log(JSON.stringify({ event }));
+
     const payload = {
       reward: {
         id: event.rewardId,
