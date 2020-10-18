@@ -10,6 +10,7 @@
   "scripts": {
     "build": "lerna run build --stream",
     "test": "lerna run test --stream",
-    "test:coverage": "lerna run test:coverage --stream"
+    "test:coverage": "lerna run test:coverage --stream",
+    "deploy": "lerna run deploy --stream"
   }
 }

@@ -11,7 +11,7 @@
     "start:watch": "nodemon --watch 'src' -e ts --exec 'ts-node -r dotenv/config' --files ./src/index.ts",
     "start": "node -r dotenv/config dist/index.js",
     "predeploy": "yarn build",
-    "deploy": "gcloud app deploy app.yaml --quiet && gcloud app deploy cron.yaml --quiet",
+    "deploy": "gcloud app deploy app.yaml --quiet",
     "test": "APP_ENV='test' jest",
     "test:watch": "yarn test --watch"
   },
