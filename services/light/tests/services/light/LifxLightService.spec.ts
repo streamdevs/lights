@@ -65,4 +65,55 @@ describe("LifxLightService", () => {
       await expect(subject.turnOn(light)).rejects.toThrow(new Error("Boom!"));
     });
   });
+
+  describe("#changeColor", () => {
+    it("calls the LIFX API with the given color", async () => {
+      const driver = new FakeHttpDriver();
+      const subject = new LifxLightService(driver);
+      const light = LightBuilder.build({ service: "LIFX" });
+
+      await subject.changeColor(light, { color: "green" });
+
+      expect(driver.put).toHaveBeenCalledWith(
+        `https://api.lifx.com/v1/lights/${light.id}/state`,
+        {
+          payload: { color: "green" },
+          headers: {
+            Authorization: `Bearer ${getConfiguration().lifx.accessToken}`,
+          },
+        }
+      );
+    });
+
+    it("calls the LIFX API with the given color and duration", async () => {
+      const driver = new FakeHttpDriver();
+      const subject = new LifxLightService(driver);
+      const light = LightBuilder.build({ service: "LIFX" });
+
+      await subject.changeColor(light, { color: "green", duration: 10 });
+
+      expect(driver.put).toHaveBeenCalledWith(
+        `https://api.lifx.com/v1/lights/${light.id}/state`,
+        {
+          payload: { color: "green", duration: 10 },
+          headers: {
+            Authorization: `Bearer ${getConfiguration().lifx.accessToken}`,
+          },
+        }
+      );
+    });
+
+    it("throws the error if the driver fails", async () => {
+      const driver = new FakeHttpDriver();
+      driver.put.mockImplementation(() => {
+        throw new Error("Boom!");
+      });
+      const light = LightBuilder.build({ service: "LIFX" });
+      const subject = new LifxLightService(driver);
+
+      await expect(
+        subject.changeColor(light, { color: "green" })
+      ).rejects.toThrow(new Error("Boom!"));
+    });
+  });
 });
