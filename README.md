@@ -1,4 +1,4 @@
-# 💡💡 lights
+# 💡💡 lights ![light](https://github.com/streamdevs/lights/workflows/light/badge.svg) ![kappa](https://github.com/streamdevs/lights/workflows/kappa/badge.svg)
 
 > Let your streaming control your Lifx and Philips Hue lights 🙈
 
