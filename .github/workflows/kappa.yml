@@ -138,3 +138,14 @@ jobs:
       # Deploy to Google App Engine
       - name: deploy
         run: gcloud app deploy cron.yaml --quiet
+        env:
+          TWITCH_CLIENT_ID: ${{secrets.TWITCH_CLIENT_ID}}
+          TWITCH_CLIENT_SECRET: ${{secrets.TWITCH_CLIENT_SECRET}}
+          TWITCH_CHANNEL_ID: ${{secrets.TWITCH_CHANNEL_ID}}
+          TWITCH_REDIRECT_URI: ${{secrets.TWITCH_REDIRECT_URI}}
+          TWITCH_SCOPES: ${{secrets.TWITCH_SCOPES}}
+          APP_GOOGLE_CLOUD_SERVICE: ${{secrets.APP_GOOGLE_CLOUD_SERVICE}}
+          APP_GOOGLE_CLOUD_QUEUE: ${{secrets.APP_GOOGLE_CLOUD_QUEUE}}
+          APP_GOOGLE_CLOUD_QUEUE_LOCATION: ${{secrets.APP_GOOGLE_CLOUD_QUEUE_LOCATION}}
+          LIFX_ACCESS_TOKEN: ${{secrets.LIFX_ACCESS_TOKEN}}
+          LIFX_LIGHTS: ${{secrets.LIFX_LIGHTS}}
