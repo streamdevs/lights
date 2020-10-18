@@ -1,7 +1,12 @@
 import { getConfiguration } from "../../../src/config";
 import { FakeHttpDriver } from "../../../src/drivers/FakeHttpDriver";
 import { LifxLightService } from "../../../src/services/light/LifxLightService";
+import { wait } from "../../../src/utils/wait";
 import { LightBuilder } from "../../builders/LightBuilder";
+
+jest.mock("../../../src/utils/wait", () => ({
+  wait: jest.fn(() => Promise.resolve()),
+}));
 
 describe("LifxLightService", () => {
   describe("#turnOff", () => {
@@ -85,7 +90,7 @@ describe("LifxLightService", () => {
       );
     });
 
-    it("calls the LIFX API with the given color and duration", async () => {
+    it("calls the LIFX API with the given color, waits the specified duration and set the default color", async () => {
       const driver = new FakeHttpDriver();
       const subject = new LifxLightService(driver);
       const light = LightBuilder.build({ service: "LIFX" });
@@ -95,7 +100,23 @@ describe("LifxLightService", () => {
       expect(driver.put).toHaveBeenCalledWith(
         `https://api.lifx.com/v1/lights/${light.id}/state`,
         {
-          payload: { color: "green", duration: 10 },
+          payload: { color: "green" },
+          headers: {
+            Authorization: `Bearer ${getConfiguration().lifx.accessToken}`,
+          },
+        }
+      );
+      expect(wait).toHaveBeenCalledWith(10);
+      expect(driver.put).toHaveBeenCalledWith(
+        `https://api.lifx.com/v1/lights/${light.id}/state`,
+        {
+          payload: {
+            color: {
+              hue: 312.8027,
+              saturation: 0,
+              kelvin: 3720,
+            },
+          },
           headers: {
             Authorization: `Bearer ${getConfiguration().lifx.accessToken}`,
           },
