@@ -1,0 +1,6 @@
+runtime: nodejs12
+service: light
+
+automatic_scaling:
+  max_instances: 1
+  min_instances: 1
