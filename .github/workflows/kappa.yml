@@ -114,6 +114,10 @@ jobs:
           name: kappa-build
           path: services/kappa/dist
 
+      # Get .env file
+      - name: deploy
+        run: echo ${{ secrets.ENV }} > services/kappa/.env
+
       # Deploy to Google App Engine
       - name: deploy
         run: gcloud app deploy --quiet
@@ -134,10 +138,6 @@ jobs:
           version: "290.0.1"
           service_account_key: ${{ secrets.GOOGLE_CLOUD_SA_KEY }}
           project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-
-      # Get .env file
-      - name: deploy
-        run: echo ${{ secrets.ENV }} > .env
 
       # Deploy to Google App Engine
       - name: deploy

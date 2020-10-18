@@ -116,7 +116,7 @@ jobs:
 
       # Get .env file
       - name: deploy
-        run: echo ${{ secrets.ENV }} > .env
+        run: echo ${{ secrets.ENV }} > services/light/.env
 
       # Deploy to Google App Engine
       - name: deploy
