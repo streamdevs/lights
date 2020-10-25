@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.2](https://github.com/streamdevs/lights/compare/v3.5.1...v3.5.2) (2020-10-25)
+
+
+### Bug Fixes
+
+* **lul:** publish package ([9d589b7](https://github.com/streamdevs/lights/commit/9d589b7e414aaf8668d53c4bfd817afee6421cf5))
+
+
+
+
+
 ## [3.5.1](https://github.com/streamdevs/lights/compare/v3.5.0...v3.5.1) (2020-10-25)
 
 **Note:** Version bump only for package root
