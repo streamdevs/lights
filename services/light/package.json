@@ -11,7 +11,7 @@
       "url": "https://santiagomartin.dev"
     }
   ],
-  "license": "CC-BY-4.0 License",
+  "license": "CC-BY-4.0",
   "private": "true",
   "scripts": {
     "build": "tsc --project ./src",
@@ -40,7 +40,6 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^4.4.0",
     "@hapi/hapi": "^20.0.1",
     "@hapi/joi": "^17.1.1",
     "@streamdevs/lights-lul": "^3.3.2",
