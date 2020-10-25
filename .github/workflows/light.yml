@@ -57,8 +57,8 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-light
-      - run: yarn install
       - run: yarn lerna link
+      - run: yarn install
       - run: yarn run build
         working-directory: services/light
       - uses: actions/upload-artifact@v2
@@ -86,8 +86,8 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-light
-      - run: yarn install
       - run: yarn lerna link
+      - run: yarn install
       - run: yarn test
         working-directory: services/light
 
