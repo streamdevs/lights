@@ -133,7 +133,7 @@ jobs:
 
       # Deploy to Google App Engine
       - name: deploy
-        run: yarn deploy --since master
+        run: yarn deploy
 
   publish-gpr:
     name: publish
@@ -162,7 +162,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - run: yarn
-      - run: yarn build --since master
+      - run: yarn build
       - run: yarn publish:ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
