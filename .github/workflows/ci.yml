@@ -131,6 +131,10 @@ jobs:
       - name: install dependencies
         run: yarn install
 
+      # Build all packages
+      - name: Build all the packages
+        run: yarn build
+
       # Deploy to Google App Engine
       - name: deploy
         run: yarn deploy

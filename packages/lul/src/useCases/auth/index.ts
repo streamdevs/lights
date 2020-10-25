@@ -1,1 +1,1 @@
-export * from './TwitchAuthCallback';
+export * from "./TwitchAuthCallback";
