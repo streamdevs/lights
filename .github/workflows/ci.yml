@@ -101,25 +101,29 @@ jobs:
 
       # Get .env file
       - name: secrets for light
-        run: 'echo "$SECRETS_ENV" > services/light/.env'
+        working-directory: services/light
+        run: 'echo "$SECRETS_ENV" > .env'
         env:
           SECRETS_ENV: ${{ secrets.ENV }}
 
       # Get .npmrc file
       - name: registry configuration for light
-        run: 'echo "$SECRETS_NPMRC" > services/light/.npmrc'
+        working-directory: services/light
+        run: 'echo "$SECRETS_NPMRC" > .npmrc'
         env:
           SECRETS_ENV: ${{ secrets.NPMRC }}
 
       # Get .env file
       - name: secrets for kappa
-        run: 'echo "$SECRETS_ENV" > services/kappa/.env'
+        working-directory: services/kappa
+        run: 'echo "$SECRETS_ENV" > .env'
         env:
           SECRETS_ENV: ${{ secrets.ENV }}
 
       # Get .npmrc file
       - name: registry configuration for kappa
-        run: 'echo "$SECRETS_NPMRC" > services/kappa/.npmrc'
+        working-directory: services/kappa
+        run: 'echo "$SECRETS_NPMRC" > .npmrc'
         env:
           SECRETS_ENV: ${{ secrets.NPMRC }}
 
