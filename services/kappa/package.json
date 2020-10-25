@@ -1,9 +1,17 @@
 {
-  "name": "streamdevs-lights-kapa",
+  "name": "streamdevs-lights-kappa",
   "version": "1.0.0",
   "repository": "https://github.com/streamdevs/lights.git",
-  "author": "Santi",
-  "license": "MIT",
+  "author": "streamdevs",
+  "contributors": [
+    {
+      "name": "Santiago Martín Agra",
+      "email": "open-source@santiagomartin.dev",
+      "url": "https://santiagomartin.dev"
+    }
+  ],
+  "license": "CC-BY-4.0 License",
+  "private": "true",
   "scripts": {
     "build": "tsc --project ./src",
     "build:check": "yarn build --noEmit",
