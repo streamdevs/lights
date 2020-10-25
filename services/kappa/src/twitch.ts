@@ -6,9 +6,9 @@ import {
   StaticAuthProvider,
 } from "twitch-auth";
 import { PubSubClient } from "twitch-pubsub-client";
-import { getConfiguration } from "./config";
-import { FirestoreStorageService } from "./services/storage/FirestoreStorageService";
-import { GoogleCloudTaskService } from "./services/task/GoogleCloudTaskService";
+import { getConfiguration } from "@streamdevs/lights-lul";
+import { FirestoreStorageService } from "@streamdevs/lights-lul";
+import { GoogleCloudTaskService } from "@streamdevs/lights-lul";
 
 const {
   twitch: { clientId, clientSecret, channelId },
