@@ -1,6 +1,6 @@
 {
   "name": "streamdevs-lights-kappa",
-  "version": "3.5.2",
+  "version": "3.5.3",
   "repository": "https://github.com/streamdevs/lights.git",
   "author": "streamdevs",
   "contributors": [
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@hapi/hapi": "^20.0.1",
-    "@streamdevs/lights-lul": "^3.5.2",
+    "@streamdevs/lights-lul": "^3.5.3",
     "dotenv": "^8.2.0",
     "twitch": "^4.2.6",
     "twitch-pubsub-client": "^4.2.6"
