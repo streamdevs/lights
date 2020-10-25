@@ -1,0 +1,85 @@
+name: lul
+
+on:
+  push:
+    paths:
+      - "packages/lul/**"
+      - ".github/workflows/lul.yml"
+    branches: [master]
+  pull_request:
+    paths:
+      - "packages/lul/**"
+      - ".github/workflows/lul.yml"
+    branches: [master]
+
+defaults:
+  run:
+    working-directory: packages/lul
+
+jobs:
+  install-lul:
+    name: install lul
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-lul
+      - run: yarn install
+
+  build-lul:
+    name: build lul
+    needs: install-lul
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-lul
+      - run: yarn install
+      - run: yarn run build
+
+  test-lul:
+    name: test unit lul
+    needs: install-lul
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-lul
+      - run: yarn install
+      - run: yarn test

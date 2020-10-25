@@ -120,6 +120,12 @@ jobs:
         env:
           SECRETS_ENV: ${{ secrets.ENV }}
 
+      # Get .npmrc file
+      - name: secrets
+        run: 'echo "$SECRETS_NPMRC" > .npmrc'
+        env:
+          SECRETS_ENV: ${{ secrets.NPMRC }}
+
       # Deploy to Google App Engine
       - name: deploy
         run: gcloud app deploy --quiet

@@ -13,10 +13,10 @@
   ],
   "license": "CC-BY-4.0 License",
   "scripts": {
-    "build": "tsc --project ./src",
+    "build": "yarn build:ts && yarn build:types",
     "build:check": "yarn build --noEmit",
     "build:types": "yarn build --declaration true",
-    "build:all": "yarn build && yarn build:types",
+    "build:ts": "tsc --project ./src",
     "test": "APP_ENV='test' jest",
     "test:watch": "yarn test --watch"
   },
