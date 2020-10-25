@@ -110,7 +110,7 @@ jobs:
         working-directory: services/light
         run: 'echo "$SECRETS_NPMRC" > .npmrc'
         env:
-          SECRETS_ENV: ${{ secrets.NPMRC }}
+          SECRETS_NPMRC: ${{ secrets.NPMRC }}
 
       # Get .env file
       - name: secrets for kappa
@@ -124,7 +124,7 @@ jobs:
         working-directory: services/kappa
         run: 'echo "$SECRETS_NPMRC" > .npmrc'
         env:
-          SECRETS_ENV: ${{ secrets.NPMRC }}
+          SECRETS_NPMRC: ${{ secrets.NPMRC }}
 
       # Setup node
       - uses: actions/setup-node@v1
