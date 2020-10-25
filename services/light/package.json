@@ -1,6 +1,6 @@
 {
   "name": "streamdevs-lights-light",
-  "version": "2.0.0",
+  "version": "3.1.0",
   "main": "index.js",
   "repository": "https://github.com/streamdevs/lights.git",
   "author": "streamdevs",
@@ -40,10 +40,10 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
-    "@streamdevs/lights-lul": "^1.0.0",
     "@google-cloud/firestore": "^4.4.0",
     "@hapi/hapi": "^20.0.1",
     "@hapi/joi": "^17.1.1",
+    "@streamdevs/lights-lul": "^3.1.0",
     "dotenv": "^8.2.0",
     "luxon": "^1.25.0",
     "node-fetch": "^2.6.1",
