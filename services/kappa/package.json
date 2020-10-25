@@ -10,7 +10,7 @@
       "url": "https://santiagomartin.dev"
     }
   ],
-  "license": "CC-BY-4.0 License",
+  "license": "CC-BY-4.0",
   "private": "true",
   "scripts": {
     "build": "tsc --project ./src",
@@ -18,9 +18,7 @@
     "start:watch": "nodemon --watch 'src' -e ts --exec 'ts-node -r dotenv/config' --files ./src/index.ts",
     "start": "node -r dotenv/config dist/index.js",
     "predeploy": "yarn build",
-    "deploy": "gcloud app deploy app.yaml --quiet && gcloud app deploy cron.yaml --quiet",
-    "test": "APP_ENV='test' jest",
-    "test:watch": "yarn test --watch"
+    "deploy": "gcloud app deploy app.yaml --quiet && gcloud app deploy cron.yaml --quiet"
   },
   "devDependencies": {
     "@types/faker": "^5.1.2",
@@ -37,9 +35,8 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^4.4.0",
-    "@google-cloud/tasks": "^2.1.1",
     "@hapi/hapi": "^20.0.1",
+    "@streamdevs/lights-lul": "^3.3.0",
     "dotenv": "^8.2.0",
     "twitch": "^4.2.6",
     "twitch-pubsub-client": "^4.2.6"
