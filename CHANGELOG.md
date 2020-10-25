@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/streamdevs/lights/compare/v3.3.2...v3.4.0) (2020-10-25)
+
+
+### Features
+
+* **light:** remove unneeded dependecies ([#25](https://github.com/streamdevs/lights/issues/25)) ([a6dd34b](https://github.com/streamdevs/lights/commit/a6dd34b80271d5b757ab7a8f0861647ed1fcb77d))
+
+
+
+
+
 ## [3.3.2](https://github.com/streamdevs/lights/compare/v3.3.1...v3.3.2) (2020-10-25)
 
 **Note:** Version bump only for package root
