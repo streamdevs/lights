@@ -15,10 +15,6 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
 
-defaults:
-  run:
-    working-directory: services/light
-
 jobs:
   install-light:
     name: install light
@@ -62,7 +58,9 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-light
       - run: yarn install
+      - run: yarn lerna link
       - run: yarn run build
+        working-directory: services/light
       - uses: actions/upload-artifact@v2
         with:
           name: light-build
@@ -89,13 +87,19 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-light
       - run: yarn install
+      - run: yarn lerna link
       - run: yarn test
+        working-directory: services/light
 
   light-deploy-app:
     name: deploy light
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: [test-light, build-light]
+
+    defaults:
+      run:
+        working-directory: services/light
 
     steps:
       - name: Checkout
