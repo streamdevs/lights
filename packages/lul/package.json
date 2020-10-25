@@ -44,5 +44,8 @@
     "luxon": "^1.25.0",
     "node-fetch": "^2.6.1",
     "string-to-color": "^2.2.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
