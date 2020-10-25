@@ -125,15 +125,18 @@ jobs:
       # Get .env file
       - name: secrets
         run: 'echo "$SECRETS_ENV" > .env'
+        working-directory: services/light
         env:
           SECRETS_ENV: ${{ secrets.ENV }}
 
       # Get .npmrc file
-      - name: secrets
+      - name: registry configuration
         run: 'echo "$SECRETS_NPMRC" > .npmrc'
+        working-directory: services/light
         env:
           SECRETS_ENV: ${{ secrets.NPMRC }}
 
       # Deploy to Google App Engine
       - name: deploy
+        working-directory: services/light
         run: gcloud app deploy --quiet
