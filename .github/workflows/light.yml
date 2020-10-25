@@ -15,10 +15,6 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
 
-defaults:
-  run:
-    working-directory: services/light
-
 jobs:
   install-light:
     name: install light
@@ -61,8 +57,12 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-light
+      - run: yarn lerna link
       - run: yarn install
-      - run: yarn run build
+      - run: yarn build
+        working-directory: packages/lul
+      - run: yarn build
+        working-directory: services/light
       - uses: actions/upload-artifact@v2
         with:
           name: light-build
@@ -88,14 +88,22 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-light
+      - run: yarn lerna link
       - run: yarn install
+      - run: yarn build
+        working-directory: packages/lul
       - run: yarn test
+        working-directory: services/light
 
   light-deploy-app:
     name: deploy light
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: [test-light, build-light]
+
+    defaults:
+      run:
+        working-directory: services/light
 
     steps:
       - name: Checkout
@@ -119,6 +127,12 @@ jobs:
         run: 'echo "$SECRETS_ENV" > .env'
         env:
           SECRETS_ENV: ${{ secrets.ENV }}
+
+      # Get .npmrc file
+      - name: secrets
+        run: 'echo "$SECRETS_NPMRC" > .npmrc'
+        env:
+          SECRETS_ENV: ${{ secrets.NPMRC }}
 
       # Deploy to Google App Engine
       - name: deploy

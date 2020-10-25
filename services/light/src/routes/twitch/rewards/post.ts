@@ -1,8 +1,8 @@
 import { Request, ResponseToolkit, ServerRoute } from "@hapi/hapi";
-import { Light } from "../../../entities/Light";
-import { Reward } from "../../../entities/Reward";
-import { ChangeLightColor } from "../../../useCases/ChangeLightColor";
-import { TurnOffAndOnLights } from "../../../useCases/TurnOffAndOnLights";
+import { Light } from "@streamdevs/lights-lul";
+import { Reward } from "@streamdevs/lights-lul";
+import { ChangeLightColor } from "@streamdevs/lights-lul";
+import { TurnOffAndOnLights } from "@streamdevs/lights-lul";
 
 export const routes = (): ServerRoute[] => {
   return [

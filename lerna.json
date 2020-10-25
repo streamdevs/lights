@@ -1,14 +1,18 @@
 {
-  "packages": ["services/*"],
-  "version": "3.0.0",
+  "packages": [
+    "services/*",
+    "packages/*"
+  ],
+  "version": "3.1.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "ignoreChanges": ["ignored-file", "*.md"]
-    },
-    "version": {
-      "allowBranch": "master"
+      "ignoreChanges": [
+        "ignored-file",
+        "*.md"
+      ],
+      "registry": "https://npm.pkg.github.com/"
     }
   }
 }

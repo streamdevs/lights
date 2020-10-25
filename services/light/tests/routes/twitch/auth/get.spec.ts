@@ -1,4 +1,4 @@
-import { getConfiguration } from "../../../../src/config";
+import { getConfiguration } from "@streamdevs/lights-lul";
 import { initServer } from "../../../../src/server";
 
 describe("GET /twitch/auth", () => {
