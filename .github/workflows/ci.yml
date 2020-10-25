@@ -38,6 +38,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -61,6 +63,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -84,6 +88,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
 
       # Setup gcloud sdk
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -116,6 +122,48 @@ jobs:
         env:
           SECRETS_ENV: ${{ secrets.NPMRC }}
 
+      # Setup node
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      # Install node dependencies to use lerna
+      - name: install dependencies
+        run: yarn install
+
       # Deploy to Google App Engine
       - name: deploy
         run: yarn deploy --since master
+
+  publish-gpr:
+    name: publish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: [test, build]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: "@santima10"
+      - name: setup git
+        run: |
+          git config --global user.name "Santiago Martín Agra"
+          git config --global user.email "SantiMA10@users.noreply.github.com"
+      - uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - run: yarn
+      - run: yarn build --since master
+      - run: yarn publish:ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
