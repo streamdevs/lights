@@ -1,5 +1,5 @@
 import { Request, ResponseToolkit, ServerRoute } from "@hapi/hapi";
-import { getConfiguration } from "../../../config";
+import { getConfiguration } from "@streamdevs/lights-lul";
 
 export const routes = (): ServerRoute[] => {
   return [

@@ -1,7 +1,7 @@
 {
-  "name": "streamdevs-lights-light",
-  "version": "2.0.0",
-  "main": "index.js",
+  "name": "@streamdevs/lights-lul",
+  "version": "1.0.0",
+  "main": "dist/index.js",
   "repository": "https://github.com/streamdevs/lights.git",
   "author": "streamdevs",
   "contributors": [
@@ -12,14 +12,11 @@
     }
   ],
   "license": "CC-BY-4.0 License",
-  "private": "true",
   "scripts": {
     "build": "tsc --project ./src",
     "build:check": "yarn build --noEmit",
-    "start:watch": "nodemon --watch 'src' -e ts --exec 'ts-node -r dotenv/config' --files ./src/index.ts",
-    "start": "node -r dotenv/config dist/index.js",
-    "predeploy": "yarn build",
-    "deploy": "gcloud app deploy app.yaml --quiet",
+    "build:types": "yarn build --declaration true",
+    "build:all": "yarn build && yarn build:types",
     "test": "APP_ENV='test' jest",
     "test:watch": "yarn test --watch"
   },
@@ -40,7 +37,6 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
-    "@streamdevs/lights-lul": "^1.0.0",
     "@google-cloud/firestore": "^4.4.0",
     "@hapi/hapi": "^20.0.1",
     "@hapi/joi": "^17.1.1",

@@ -1,5 +1,5 @@
-import { DriverFactory } from "../../../../../src/drivers/DriverFactory";
-import { FakeHttpDriver } from "../../../../../src/drivers/FakeHttpDriver";
+import { DriverFactory } from "@streamdevs/lights-lul";
+import { FakeHttpDriver } from "@streamdevs/lights-lul";
 import { initServer } from "../../../../../src/server";
 
 const testBuilder = () => {
