@@ -1,5 +1,5 @@
+import { FakeHttpDriver } from "../../../src";
 import { getConfiguration } from "../../../src/config";
-import { FakeHttpDriver } from "../../../src/drivers/FakeHttpDriver";
 import { LifxLightService } from "../../../src/services/light/LifxLightService";
 import { wait } from "../../../src/utils/wait";
 import { LightBuilder } from "../../builders/LightBuilder";

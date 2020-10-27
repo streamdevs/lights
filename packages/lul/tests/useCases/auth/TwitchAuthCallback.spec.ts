@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
+import { FakeHttpDriver } from "../../../src";
 import { getConfiguration } from "../../../src/config";
-import { FakeHttpDriver } from "../../../src/drivers/FakeHttpDriver";
 import { FakeStorageService } from "../../../src/services/storage/FakeStorageService";
 import { TwitchAuthCallback } from "../../../src/useCases/auth/TwitchAuthCallback";
 
