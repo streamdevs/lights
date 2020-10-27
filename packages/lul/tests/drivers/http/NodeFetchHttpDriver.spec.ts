@@ -1,5 +1,7 @@
+import { noop } from "lodash";
 import nock from "nock";
-import { NodeFetchHttpDriver } from "../../src/drivers/NodeFetchHttpDriver";
+import { NodeFetchHttpDriver } from "../../../src/drivers/http/NodeFetchHttpDriver";
+import { FakeLogDriver } from "../../../src/drivers/logger/FakeLogDriver";
 
 describe("NodeFetchHttpDriver", () => {
   describe("#put", () => {
@@ -57,18 +59,6 @@ describe("NodeFetchHttpDriver", () => {
       expect(scope.isDone()).toBeTruthy();
     });
 
-    it("throws an exception if the request return a error", async () => {
-      nock("https://google.com")
-        .post("/test")
-        .once()
-        .reply(400, { status: "boom!" });
-      const subject = new NodeFetchHttpDriver();
-
-      await expect(subject.post("https://google.com/test", {})).rejects.toThrow(
-        new Error('400 - {"status":"boom!"}')
-      );
-    });
-
     it("returns the response from the request", async () => {
       nock("https://google.com")
         .post("/test")
@@ -82,12 +72,42 @@ describe("NodeFetchHttpDriver", () => {
     });
 
     it("returns an empty response", async () => {
-      nock("https://google.com").post("/test").once().reply(200, "");
+      nock("https://google.com").post("/test").once().reply(200, "ey!");
       const subject = new NodeFetchHttpDriver();
 
       const response = await subject.post("https://google.com/test", {});
 
-      expect(response).toEqual(undefined);
+      expect(response).toEqual("ey!");
+    });
+
+    describe("dealing with errors", () => {
+      it("throws an exception if the request return a error", async () => {
+        nock("https://google.com")
+          .post("/test")
+          .once()
+          .reply(400, { status: "boom!" });
+        const subject = new NodeFetchHttpDriver();
+
+        await expect(
+          subject.post("https://google.com/test", {})
+        ).rejects.toThrow(new Error('400 - {"status":"boom!"}'));
+      });
+
+      it("logs the error using the LogDriver", async () => {
+        nock("https://google.com")
+          .post("/test")
+          .once()
+          .reply(400, { status: "boom!" });
+
+        const logDriver = new FakeLogDriver();
+        const subject = new NodeFetchHttpDriver(logDriver);
+
+        await subject.post("https://google.com/test", {}).catch(noop);
+
+        expect(logDriver.error).toHaveBeenCalledWith(
+          new Error('400 - {"status":"boom!"}')
+        );
+      });
     });
   });
 });

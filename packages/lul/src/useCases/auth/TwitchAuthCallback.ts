@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 import { getConfiguration } from "../../config";
+import { HttpDriver } from "../../drivers";
 import { DriverFactory } from "../../drivers/DriverFactory";
-import { HttpDriver } from "../../drivers/HttpDriver";
 import { StorageFactory } from "../../services/storage/StorageFactory";
 import { StorageService } from "../../services/storage/StorageService";
 
@@ -11,7 +11,7 @@ interface PerformOptions {
 
 export class TwitchAuthCallback {
   public constructor(
-    private driver: HttpDriver = DriverFactory.build(),
+    private driver: HttpDriver = DriverFactory.buildHttpDriver(),
     private storageService: StorageService = StorageFactory.build()
   ) {}
 

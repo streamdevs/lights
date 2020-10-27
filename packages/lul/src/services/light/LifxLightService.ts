@@ -1,6 +1,5 @@
 import { getConfiguration } from "../../config";
-import { HttpDriver } from "../../drivers/HttpDriver";
-import { NodeFetchHttpDriver } from "../../drivers/NodeFetchHttpDriver";
+import { DriverFactory, HttpDriver } from "../../drivers";
 import { Light } from "../../entities/Light";
 import { wait } from "../../utils/wait";
 import { LightService } from "./LightService";
@@ -11,7 +10,9 @@ interface ChangeColorOptions {
 }
 
 export class LifxLightService implements LightService {
-  public constructor(private driver: HttpDriver = new NodeFetchHttpDriver()) {}
+  public constructor(
+    private driver: HttpDriver = DriverFactory.buildHttpDriver()
+  ) {}
 
   public async changeColor(
     light: Light,

@@ -1,7 +1,13 @@
 import { HttpDriver } from "./HttpDriver";
 import fetch from "node-fetch";
+import { DriverFactory } from "../DriverFactory";
+import { LogDriver } from "../logger/LogDriver";
 
 export class NodeFetchHttpDriver implements HttpDriver {
+  public constructor(
+    private logger: LogDriver = DriverFactory.buildLogDriver()
+  ) {}
+
   public async put(
     url: string,
     options: { payload?: any; headers?: any }
@@ -28,14 +34,15 @@ export class NodeFetchHttpDriver implements HttpDriver {
     });
 
     if (!response.ok) {
-      throw new Error(`${response.status} - ${await response.text()}`);
+      const error = new Error(`${response.status} - ${await response.text()}`);
+      this.logger.error(error);
+      throw error;
     }
 
     try {
-      return await response.json();
+      return await response.clone().json();
     } catch (e) {
-      console.error(e);
-      return undefined;
+      return await response.clone().text();
     }
   }
 }

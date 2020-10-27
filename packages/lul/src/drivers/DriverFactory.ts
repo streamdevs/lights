@@ -1,14 +1,22 @@
 import { isTestEnv } from "../config";
-import { FakeHttpDriver } from "./FakeHttpDriver";
-import { HttpDriver } from "./HttpDriver";
-import { NodeFetchHttpDriver } from "./NodeFetchHttpDriver";
+import { HttpDriver, NodeFetchHttpDriver } from "./http";
+import { FakeHttpDriver } from "./http/FakeHttpDriver";
+import { ConsoleLogDriver, FakeLogDriver, LogDriver } from "./logger";
 
 export class DriverFactory {
-  public static build(): HttpDriver {
+  public static buildHttpDriver(): HttpDriver {
     if (isTestEnv()) {
       return new FakeHttpDriver();
     }
 
     return new NodeFetchHttpDriver();
+  }
+
+  public static buildLogDriver(): LogDriver {
+    if (isTestEnv()) {
+      return new FakeLogDriver();
+    }
+
+    return new ConsoleLogDriver();
   }
 }
