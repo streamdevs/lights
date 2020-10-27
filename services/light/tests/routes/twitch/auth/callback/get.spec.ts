@@ -10,7 +10,9 @@ const testBuilder = () => {
     refresh_token: "<refresh token>",
     expires_in: 10,
   }));
-  jest.spyOn(DriverFactory, "build").mockImplementationOnce(() => fake);
+  jest
+    .spyOn(DriverFactory, "buildHttpDriver")
+    .mockImplementationOnce(() => fake);
   const subject = initServer();
 
   return { subject, code };
