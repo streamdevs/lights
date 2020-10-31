@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/streamdevs/lights/compare/v3.8.0...v3.9.0) (2020-10-31)
+
+
+### Features
+
+* add ErrorReporting support ([60b2a99](https://github.com/streamdevs/lights/commit/60b2a9998f8548ef4e9ef324b8735f9c7903f5ef))
+
+
+
+
+
 # [3.8.0](https://github.com/streamdevs/lights/compare/v3.7.1...v3.8.0) (2020-10-31)
 
 **Note:** Version bump only for package streamdevs-lights-kappa

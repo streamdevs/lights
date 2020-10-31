@@ -1,6 +1,6 @@
 {
   "name": "streamdevs-lights-light",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "main": "index.js",
   "repository": "https://github.com/streamdevs/lights.git",
   "author": "streamdevs",
