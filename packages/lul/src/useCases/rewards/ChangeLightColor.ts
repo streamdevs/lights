@@ -1,21 +1,23 @@
-import { string } from "@hapi/joi";
 import { Light } from "../../entities/Light";
 import { LightService } from "../../services/light/LightService";
 import stc from "string-to-color";
 import { LifxLightService } from "../../services/light/LifxLightService";
+import { RewardActionUseCase } from "./RewardActionUseCase";
+import { Reward } from "../../entities";
 
 interface PerformOptions {
-  message: string;
+  message?: string;
+  reward?: Reward;
   lights: Light[];
 }
 
-export class ChangeLightColor {
+export class ChangeLightColor implements RewardActionUseCase {
   public constructor(
     private lightService: LightService = new LifxLightService()
   ) {}
 
-  public async perform({ message, lights }: PerformOptions) {
-    const color = stc(message);
+  public async perform({ message, reward, lights }: PerformOptions) {
+    const color = stc(reward ? reward.message : message);
 
     await Promise.all(
       lights.map((light) => {
@@ -24,3 +26,5 @@ export class ChangeLightColor {
     );
   }
 }
+
+export default ChangeLightColor;
