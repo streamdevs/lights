@@ -1,6 +1,6 @@
 {
   "name": "streamdevs-lights-light",
-  "version": "3.9.1",
+  "version": "3.9.2",
   "main": "index.js",
   "repository": "https://github.com/streamdevs/lights.git",
   "author": "streamdevs",
@@ -37,7 +37,7 @@
     "@google-cloud/error-reporting": "^2.0.0",
     "@hapi/hapi": "^20.0.1",
     "@hapi/joi": "^17.1.1",
-    "@streamdevs/lights-lul": "^3.8.0",
+    "@streamdevs/lights-lul": "^3.9.2",
     "dotenv": "^8.2.0"
   }
 }

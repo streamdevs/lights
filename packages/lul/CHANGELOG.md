@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.2](https://github.com/streamdevs/lights/compare/v3.9.1...v3.9.2) (2020-10-31)
+
+
+### Bug Fixes
+
+* **lul:** reward redeemer ([ba21980](https://github.com/streamdevs/lights/commit/ba21980aab92b1c16eefad9d485240ae465405bc))
+
+
+
+
+
 # [3.8.0](https://github.com/streamdevs/lights/compare/v3.7.1...v3.8.0) (2020-10-31)
 
 **Note:** Version bump only for package @streamdevs/lights-lul
