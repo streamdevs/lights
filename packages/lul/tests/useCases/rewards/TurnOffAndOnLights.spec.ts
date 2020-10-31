@@ -1,9 +1,9 @@
-import { Light } from "../../src/entities/Light";
-import { FakeLightService } from "../../src/services/light/FakeLightService";
-import { TurnOffAndOnLights } from "../../src/useCases/TurnOffAndOnLights";
-import { wait } from "../../src/utils/wait";
+import { Light } from "../../../src/entities/Light";
+import { FakeLightService } from "../../../src/services/light/FakeLightService";
+import { TurnOffAndOnLights } from "../../../src/useCases/rewards/TurnOffAndOnLights";
+import { wait } from "../../../src/utils/wait";
 
-jest.mock("../../src/utils/wait", () => ({
+jest.mock("../../../src/utils/wait", () => ({
   wait: jest.fn(() => Promise.resolve()),
 }));
 

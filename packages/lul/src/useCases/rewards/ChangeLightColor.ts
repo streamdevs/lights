@@ -1,8 +1,8 @@
 import { string } from "@hapi/joi";
-import { Light } from "../entities/Light";
-import { LightService } from "../services/light/LightService";
+import { Light } from "../../entities/Light";
+import { LightService } from "../../services/light/LightService";
 import stc from "string-to-color";
-import { LifxLightService } from "../services/light/LifxLightService";
+import { LifxLightService } from "../../services/light/LifxLightService";
 
 interface PerformOptions {
   message: string;

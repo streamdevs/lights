@@ -1,6 +1,6 @@
-import { FakeLightService } from "../../src/services/light/FakeLightService";
-import { ChangeLightColor } from "../../src/useCases/ChangeLightColor";
-import { LightBuilder } from "../builders/LightBuilder";
+import { ChangeLightColor } from "../../../src";
+import { FakeLightService } from "../../../src/services/light/FakeLightService";
+import { LightBuilder } from "../../builders/LightBuilder";
 
 describe("ChangeLightColor", () => {
   describe("#perform", () => {

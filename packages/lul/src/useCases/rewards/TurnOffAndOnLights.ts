@@ -1,7 +1,7 @@
-import { Light } from "../entities/Light";
-import { LifxLightService } from "../services/light/LifxLightService";
-import { LightService } from "../services/light/LightService";
-import { wait } from "../utils/wait";
+import { Light } from "../../entities/Light";
+import { LifxLightService } from "../../services/light/LifxLightService";
+import { LightService } from "../../services/light/LightService";
+import { wait } from "../../utils/wait";
 
 interface PerformOptions {
   lights: Light[];
