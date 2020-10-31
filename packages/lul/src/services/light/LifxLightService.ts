@@ -9,10 +9,36 @@ interface ChangeColorOptions {
   duration?: number;
 }
 
+interface DiscoOptions {
+  color: string;
+  cycles: number;
+  period: number;
+  initialColor?: string;
+}
+
 export class LifxLightService implements LightService {
   public constructor(
     private driver: HttpDriver = DriverFactory.buildHttpDriver()
   ) {}
+
+  public async disco(light: Light, options: DiscoOptions): Promise<void> {
+    const { color, cycles, period, initialColor } = options;
+
+    await this.driver.post(
+      `https://api.lifx.com/v1/lights/id:${light.id}/effects/breathe`,
+      {
+        payload: {
+          color,
+          cycles,
+          period,
+          ...(initialColor && { from_color: initialColor }),
+        },
+        headers: {
+          Authorization: `Bearer ${getConfiguration().lifx.accessToken}`,
+        },
+      }
+    );
+  }
 
   public async changeColor(
     light: Light,

@@ -137,4 +137,61 @@ describe("LifxLightService", () => {
       ).rejects.toThrow(new Error("Boom!"));
     });
   });
+
+  describe("#disco", () => {
+    it("calls the LIFX API with the color, cycles, period and lights", async () => {
+      const driver = new FakeHttpDriver();
+      const subject = new LifxLightService(driver);
+      const light = LightBuilder.build({ service: "LIFX" });
+
+      await subject.disco(light, { color: "red", cycles: 5, period: 5 });
+
+      expect(driver.post).toHaveBeenCalledWith(
+        `https://api.lifx.com/v1/lights/id:${light.id}/effects/breathe`,
+        {
+          payload: { color: "red", cycles: 5, period: 5 },
+          headers: { Authorization: "Bearer fake-lifx-token" },
+        }
+      );
+    });
+
+    it("calls the LIFX API with the initialColor, color, cycles, period and lights", async () => {
+      const driver = new FakeHttpDriver();
+      const subject = new LifxLightService(driver);
+      const light = LightBuilder.build({ service: "LIFX" });
+
+      await subject.disco(light, {
+        color: "red",
+        cycles: 5,
+        period: 5,
+        initialColor: "blue",
+      });
+
+      expect(driver.post).toHaveBeenCalledWith(
+        `https://api.lifx.com/v1/lights/id:${light.id}/effects/breathe`,
+        {
+          payload: { color: "red", cycles: 5, period: 5, from_color: "blue" },
+          headers: { Authorization: "Bearer fake-lifx-token" },
+        }
+      );
+    });
+
+    it("throws the error if the driver fails", async () => {
+      const driver = new FakeHttpDriver();
+      driver.post.mockImplementation(() => {
+        throw new Error("Boom!");
+      });
+      const light = LightBuilder.build({ service: "LIFX" });
+      const subject = new LifxLightService(driver);
+
+      await expect(
+        subject.disco(light, {
+          color: "red",
+          cycles: 5,
+          period: 5,
+          initialColor: "blue",
+        })
+      ).rejects.toThrow(new Error("Boom!"));
+    });
+  });
 });
