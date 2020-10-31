@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/streamdevs/lights/compare/v3.7.0...v3.7.1) (2020-10-31)
+
+
+### Bug Fixes
+
+* **lul:** export all the use cases ([7d7e1ff](https://github.com/streamdevs/lights/commit/7d7e1ff16e169f51e355e0e0e8a5323f8fdbbe8c))
+
+
+
+
+
 # [3.7.0](https://github.com/streamdevs/lights/compare/v3.6.1...v3.7.0) (2020-10-31)
 
 
