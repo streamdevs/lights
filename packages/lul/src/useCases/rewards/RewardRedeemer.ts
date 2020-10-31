@@ -30,7 +30,7 @@ export class RewardRedeemer {
       return;
     }
 
-    const { default: Action } = await import(`${__dirname}/${action}.ts`);
+    const { default: Action } = await import(`${__dirname}/${action}`);
     await new Action().perform({ reward, lights });
   }
 }
