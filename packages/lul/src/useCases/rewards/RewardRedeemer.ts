@@ -1,13 +1,15 @@
 import { Reward } from "../../entities";
 import { RewardAction } from "../../entities/RewardAction";
-import { StorageService } from "../../services";
+import { StorageFactory, StorageService } from "../../services";
 
 interface PerformOptions {
   reward: Reward;
 }
 
 export class RewardRedeemer {
-  public constructor(private storageService: StorageService) {}
+  public constructor(
+    private storageService: StorageService = StorageFactory.build()
+  ) {}
 
   public async perform({ reward }: PerformOptions) {
     const rewardAction: RewardAction = await this.storageService.get(
