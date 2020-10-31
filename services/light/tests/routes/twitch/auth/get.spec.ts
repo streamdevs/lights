@@ -3,7 +3,7 @@ import { initServer } from "../../../../src/server";
 
 describe("GET /twitch/auth", () => {
   it("redirects the user to the expect Twitch Authorization page", async () => {
-    const subject = initServer();
+    const subject = await initServer();
     const { clientId, scopes, redirectUri } = getConfiguration().twitch;
 
     const { headers } = await subject.inject({

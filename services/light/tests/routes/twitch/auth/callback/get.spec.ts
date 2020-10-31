@@ -2,7 +2,7 @@ import { DriverFactory } from "@streamdevs/lights-lul";
 import { FakeHttpDriver } from "@streamdevs/lights-lul";
 import { initServer } from "../../../../../src/server";
 
-const testBuilder = () => {
+const testBuilder = async () => {
   const code = "blabla";
   const fake = new FakeHttpDriver();
   fake.post.mockImplementationOnce(async () => ({
@@ -13,14 +13,14 @@ const testBuilder = () => {
   jest
     .spyOn(DriverFactory, "buildHttpDriver")
     .mockImplementationOnce(() => fake);
-  const subject = initServer();
+  const subject = await initServer();
 
   return { subject, code };
 };
 
 describe("GET /twitch/auth/callback", () => {
   it("handles the callback", async () => {
-    const { subject, code } = testBuilder();
+    const { subject, code } = await testBuilder();
 
     const { statusCode } = await subject.inject({
       method: "GET",
@@ -31,7 +31,7 @@ describe("GET /twitch/auth/callback", () => {
   });
 
   it("rejects request without code in the query string", async () => {
-    const subject = initServer();
+    const subject = await initServer();
 
     const { statusCode } = await subject.inject({
       method: "GET",
