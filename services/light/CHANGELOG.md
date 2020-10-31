@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/streamdevs/lights/compare/v3.7.1...v3.8.0) (2020-10-31)
+
+
+### Features
+
+* **light:** use new 'RewardRedeemer' ([856501f](https://github.com/streamdevs/lights/commit/856501f38428216ead6eaa297614b94c941587e5))
+
+
+
+
+
 ## [3.7.1](https://github.com/streamdevs/lights/compare/v3.7.0...v3.7.1) (2020-10-31)
 
 **Note:** Version bump only for package streamdevs-lights-light
