@@ -18,8 +18,8 @@
     "build:check": "yarn build:ts --noEmit",
     "build:types": "yarn build:ts --declaration true",
     "build:ts": "tsc --project ./src",
-    "test": "APP_ENV='test' jest",
-    "test:watch": "yarn test --watch"
+    "test": "APP_ENV='test' firebase emulators:exec --project example 'jest --detectOpenHandles'",
+    "test:watch": "APP_ENV='test' firebase emulators:exec --project example 'jest --watch --detectOpenHandles'"
   },
   "devDependencies": {
     "@types/faker": "^5.1.2",
@@ -30,6 +30,7 @@
     "@types/node-fetch": "^2.5.7",
     "factory.ts": "^0.5.1",
     "faker": "^5.1.0",
+    "firebase-tools": "^8.14.1",
     "jest": "^26.0.1",
     "nock": "^13.0.4",
     "ts-jest": "^26.0.0",

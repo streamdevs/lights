@@ -1,8 +1,11 @@
+import { Firestore, Timestamp } from "@google-cloud/firestore";
 import { DateTime } from "luxon";
-import { FakeHttpDriver } from "../../../src";
+import { FakeHttpDriver, FirestoreStorageService } from "../../../src";
 import { getConfiguration } from "../../../src/config";
 import { FakeStorageService } from "../../../src/services/storage/FakeStorageService";
 import { TwitchAuthCallback } from "../../../src/useCases/auth/TwitchAuthCallback";
+
+const firestore = new Firestore();
 
 const testBuilder = () => {
   const driver = new FakeHttpDriver();
@@ -12,13 +15,17 @@ const testBuilder = () => {
     expires_in: 10,
   }));
 
-  const storageService = new FakeStorageService();
+  const storageService = new FirestoreStorageService(firestore);
   const subject = new TwitchAuthCallback(driver, storageService);
 
   return { driver, subject, storageService };
 };
 
 describe("TwitchAuthCallback", () => {
+  afterAll(async () => {
+    await firestore.terminate();
+  });
+
   it("calls Twitch API to get the access and refresh tokens", async () => {
     const { driver, subject } = testBuilder();
     const code = "code";
@@ -37,11 +44,11 @@ describe("TwitchAuthCallback", () => {
 
     await subject.perform({ code: "code" });
 
-    expect(storageService.set).toHaveBeenCalledWith("services/twitch", {
+    expect(await storageService.get("services/twitch")).toEqual({
       accessToken: "<user access token>",
       refreshToken: "<refresh token>",
       expiresIn: 10,
-      expiryDate: expect.any(Date),
+      expiryDate: expect.any(Timestamp),
     });
   });
 
@@ -52,11 +59,13 @@ describe("TwitchAuthCallback", () => {
 
     await subject.perform({ code: "code" });
 
-    expect(storageService.set).toHaveBeenCalledWith("services/twitch", {
+    expect(await storageService.get("services/twitch")).toEqual({
       accessToken: "<user access token>",
       refreshToken: "<refresh token>",
       expiresIn: 10,
-      expiryDate: currentDate.plus({ seconds: 10 }).toJSDate(),
+      expiryDate: Timestamp.fromDate(
+        currentDate.plus({ seconds: 10 }).toJSDate()
+      ),
     });
   });
 });
