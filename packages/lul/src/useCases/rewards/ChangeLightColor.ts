@@ -1,13 +1,12 @@
-import { Light } from "../../entities/Light";
-import { LightService } from "../../services/light/LightService";
 import stc from "string-to-color";
-import { LifxLightService } from "../../services/light/LifxLightService";
-import { RewardActionUseCase } from "./RewardActionUseCase";
 import { Reward } from "../../entities";
+import { Light } from "../../entities/Light";
+import { LifxLightService } from "../../services/light/LifxLightService";
+import { LightService } from "../../services/light/LightService";
+import { RewardActionUseCase } from "./RewardActionUseCase";
 
 interface PerformOptions {
-  message?: string;
-  reward?: Reward;
+  reward: Reward;
   lights: Light[];
 }
 
@@ -16,8 +15,8 @@ export class ChangeLightColor implements RewardActionUseCase {
     private lightService: LightService = new LifxLightService()
   ) {}
 
-  public async perform({ message, reward, lights }: PerformOptions) {
-    const color = stc(reward ? reward.message : message);
+  public async perform({ reward, lights }: PerformOptions) {
+    const color = stc(reward.message);
 
     await Promise.all(
       lights.map((light) => {
