@@ -16,6 +16,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            /home/runner/.cache/firebase/emulators
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -40,6 +48,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: "0"
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            /home/runner/.cache/firebase/emulators
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -138,6 +154,16 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      # Restore cache
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            /home/runner/.cache/firebase/emulators
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       # Install node dependencies to use lerna
       - name: install dependencies
