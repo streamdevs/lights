@@ -30,7 +30,7 @@ export class RewardRedeemer {
       return;
     }
 
-    const { default: Action } = await import(`./${action}.ts`);
+    const Action = ((await import("@streamdevs/lights-lul")) as any)[action];
     await new Action().perform({ reward, lights });
   }
 }

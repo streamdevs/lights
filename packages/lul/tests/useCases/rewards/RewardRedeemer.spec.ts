@@ -1,6 +1,6 @@
 import { Firestore, Timestamp } from "@google-cloud/firestore";
 import { FirestoreStorageService } from "../../../src";
-import { FakeAction } from "../../../src/useCases/rewards/FakeAction";
+import { FakeAction } from "@streamdevs/lights-lul";
 import { RewardRedeemer } from "../../../src/useCases/rewards/RewardRedeemer";
 import { LightBuilder } from "../../builders/LightBuilder";
 import { RewardBuilder } from "../../builders/RewardBuilder";
