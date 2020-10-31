@@ -1,6 +1,6 @@
 {
   "name": "streamdevs-lights-light",
-  "version": "3.6.1",
+  "version": "3.7.0",
   "main": "index.js",
   "repository": "https://github.com/streamdevs/lights.git",
   "author": "streamdevs",
@@ -36,7 +36,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.0.1",
     "@hapi/joi": "^17.1.1",
-    "@streamdevs/lights-lul": "^3.6.1",
+    "@streamdevs/lights-lul": "^3.7.0",
     "dotenv": "^8.2.0"
   }
 }

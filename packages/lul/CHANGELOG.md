@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/streamdevs/lights/compare/v3.6.1...v3.7.0) (2020-10-31)
+
+
+### Features
+
+* **lul:** add new 'RewardRedeemer' use case ([2ed3125](https://github.com/streamdevs/lights/commit/2ed312569142d6624475dbc9623e9338f180f353))
+* **lul:** Migrate old related use cases to 'RewardActionUseCase' interface ([28fce41](https://github.com/streamdevs/lights/commit/28fce41bee4d028885547cfbd66a9d1ca89a1f5a))
+
+
+
+
+
 ## [3.6.1](https://github.com/streamdevs/lights/compare/v3.6.0...v3.6.1) (2020-10-31)
 
 **Note:** Version bump only for package @streamdevs/lights-lul
