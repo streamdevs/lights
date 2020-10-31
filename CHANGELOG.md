@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.1](https://github.com/streamdevs/lights/compare/v3.9.0...v3.9.1) (2020-10-31)
+
+
+### Bug Fixes
+
+* hapi plugin registration ([ef187d5](https://github.com/streamdevs/lights/commit/ef187d54e6e4f7e6e9fdb248a8dd4f7ef3c2733f))
+
+
+
+
+
 # [3.9.0](https://github.com/streamdevs/lights/compare/v3.8.0...v3.9.0) (2020-10-31)
 
 
