@@ -22,7 +22,7 @@ export class Disco implements RewardActionUseCase {
         this.lightService.disco(light, {
           color,
           initialColor,
-          cycles: 5,
+          cycles: 10,
           period: 20,
         })
       )

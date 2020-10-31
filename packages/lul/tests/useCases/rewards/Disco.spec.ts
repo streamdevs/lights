@@ -41,7 +41,7 @@ describe("Disco", () => {
       expect(lightService.disco).toHaveBeenCalledWith(lights[0], {
         color: "#fefefe",
         initialColor: "#fefefe",
-        cycles: 5,
+        cycles: 10,
         period: 20,
       });
     });
