@@ -4,7 +4,7 @@ import Joi from "@hapi/joi";
 import { isTestEnv } from "@streamdevs/lights-lul";
 import { routes } from "./routes";
 
-export const initServer = () => {
+export const initServer = async () => {
   const server = new Server({
     port: process.env.PORT || 3000,
   });
@@ -13,7 +13,7 @@ export const initServer = () => {
   server.route(routes());
 
   if (!isTestEnv()) {
-    server.register(new ErrorReporting().hapi);
+    await server.register(new ErrorReporting().hapi);
   }
 
   return server;

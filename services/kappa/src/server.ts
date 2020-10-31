@@ -2,7 +2,7 @@ import { ErrorReporting } from "@google-cloud/error-reporting";
 import { Request, ResponseToolkit, Server } from "@hapi/hapi";
 import { isTestEnv } from "@streamdevs/lights-lul";
 
-export const initServer = () => {
+export const initServer = async () => {
   const server = new Server({
     port: process.env.PORT || 3000,
   });
@@ -18,7 +18,7 @@ export const initServer = () => {
   ]);
 
   if (!isTestEnv()) {
-    server.register(new ErrorReporting().hapi);
+    await server.register(new ErrorReporting().hapi);
   }
 
   return server;

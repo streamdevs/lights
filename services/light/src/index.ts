@@ -1,7 +1,7 @@
 import { initServer } from "./server";
 
 const init = async () => {
-  const server = initServer();
+  const server = await initServer();
 
   await server.start();
   console.log("Server running on %s", server.info.uri);

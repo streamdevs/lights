@@ -2,7 +2,7 @@ import { initServer } from "./server";
 import { initTwitchPubSub } from "./twitch";
 
 const init = async () => {
-  const server = initServer();
+  const server = await initServer();
 
   await server.start();
   initTwitchPubSub();
