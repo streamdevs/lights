@@ -18,8 +18,8 @@
     "build:check": "yarn build:ts --noEmit",
     "build:types": "yarn build:ts --declaration true",
     "build:ts": "tsc --project ./src",
-    "test": "APP_ENV='test' firebase emulators:exec --project example 'jest'",
-    "test:watch": "jest --watch"
+    "test": "APP_ENV='test' firebase emulators:exec --project example 'jest --detectOpenHandles'",
+    "test:watch": "APP_ENV='test' firebase emulators:exec --project example 'jest --watch --detectOpenHandles'"
   },
   "devDependencies": {
     "@types/faker": "^5.1.2",
