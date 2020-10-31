@@ -1,4 +1,6 @@
+import { ErrorReporting } from "@google-cloud/error-reporting";
 import { Request, ResponseToolkit, Server } from "@hapi/hapi";
+import { isTestEnv } from "@streamdevs/lights-lul";
 
 export const initServer = () => {
   const server = new Server({
@@ -14,6 +16,10 @@ export const initServer = () => {
       },
     },
   ]);
+
+  if (!isTestEnv()) {
+    server.register(new ErrorReporting().hapi);
+  }
 
   return server;
 };

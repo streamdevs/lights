@@ -28,6 +28,7 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
+    "@google-cloud/error-reporting": "^2.0.0",
     "@hapi/hapi": "^20.0.1",
     "@streamdevs/lights-lul": "^3.8.0",
     "dotenv": "^8.2.0",
