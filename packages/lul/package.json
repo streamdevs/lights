@@ -43,7 +43,7 @@
     "@google-cloud/firestore": "^4.4.0",
     "@google-cloud/tasks": "^2.1.1",
     "lodash": "^4.17.20",
-    "luxon": "^1.25.0",
+    "luxon": "^2.5.2",
     "node-fetch": "^2.6.1",
     "string-to-color": "^2.2.2"
   },
